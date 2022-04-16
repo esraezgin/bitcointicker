@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".coinslist.view.CoinsListActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.android.app.loodos.bitcointicker.feature.coinslist.viewmodel.CoinsListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -23,18 +30,49 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_searching_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/view_size_30"
+            android:layout_height="40dp"
             android:background="@color/white"
             android:hint="@string/search_hint_text"
-            android:paddingStart="@dimen/margin_16"
-            android:paddingEnd="@dimen/margin_16" />
+            android:layout_marginEnd="50dp"
+            android:inputType="text"
+            android:paddingStart="@dimen/margin_16" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_clear_search_view"
+            android:layout_width="@dimen/view_size_30"
+            android:layout_height="@dimen/view_size_30"
+            android:src="@drawable/ic_baseline_cancel_24"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            />
 
 
     </RelativeLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminateTint="@color/purple_500"
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:progress="0"
+            android:visibility="visible"
+            android:max="100"
+            android:indeterminate = "true"
+            />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCoinList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/rl_searching_view"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="@dimen/margin_16"
@@ -45,3 +83,5 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

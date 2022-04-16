@@ -14,7 +14,7 @@
             android:name="com.android.app.loodos.bitcointicker.detailcoins.view.DetailCoinsActivity"
             android:exported="false" />
         <activity
-            android:name="com.android.app.loodos.bitcointicker.coinslist.view.CoinsListActivity"
+            android:name="com.android.app.loodos.bitcointicker.feature.coinslist.view.CoinsListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
