@@ -1,4 +1,4 @@
-package com.android.app.loodos.bitcointicker.utils
+package com.android.app.loodos.bitcointicker.core.common
 
 object Constants {
 

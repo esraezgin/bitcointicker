@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.android.app.loodos.bitcointicker.feature.coinslist.viewmodel.CoinsListViewModel" />
+            type="com.android.app.loodos.bitcointicker.core.base.BaseViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,11 +77,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_coin_list"
+        android:focusableInTouchMode="true"
         tools:itemCount="8"
         />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_empty_list_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:gravity="center"
+            android:text="@string/empty_list_warning"
+            android:textSize="@dimen/text_size_18"
+            android:visibility="gone"
+            android:textColor="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rl_searching_view"
+            app:layout_constraintVertical_bias="0.389"
+            tools:layout_editor_absoluteX="-8dp"
+            tools:visibility="visible" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

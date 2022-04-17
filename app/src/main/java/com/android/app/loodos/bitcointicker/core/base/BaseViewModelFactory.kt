@@ -1,8 +1,8 @@
-package com.android.app.loodos.bitcointicker.factory
+package com.android.app.loodos.bitcointicker.core.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.app.loodos.bitcointicker.repository.Repository
+import com.android.app.loodos.bitcointicker.network.Repository
 
 class BaseViewModelFactory constructor(private val repository: Repository) : ViewModelProvider.Factory {
 
