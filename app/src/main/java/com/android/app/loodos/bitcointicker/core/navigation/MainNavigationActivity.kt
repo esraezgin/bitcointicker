@@ -1,4 +1,4 @@
-package com.android.app.loodos.bitcointicker.feature.navigation
+package com.android.app.loodos.bitcointicker.core.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

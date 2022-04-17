@@ -20,6 +20,8 @@ class BaseViewModel constructor(private val repository: Repository) : ViewModel(
     var originalCoinList: List<CoinsList> = emptyList()
     var selectedCoinItem : CoinsList ?= null
 
+    var fromFavorite:Boolean=false
+
 
     fun getCoinsList() {
         val response = repository.getCoinsList()

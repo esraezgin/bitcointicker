@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BitcoinTicker">
         <activity
-            android:name=".feature.navigation.MainNavigationActivity"
+            android:name="com.android.app.loodos.bitcointicker.core.navigation.MainNavigationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

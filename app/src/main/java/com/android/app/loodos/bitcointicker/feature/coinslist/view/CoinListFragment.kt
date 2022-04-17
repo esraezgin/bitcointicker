@@ -17,6 +17,9 @@ import com.android.app.loodos.bitcointicker.feature.coinslist.adapter.CoinsListA
 import com.android.app.loodos.bitcointicker.network.RetrofitApi
 import com.android.app.loodos.bitcointicker.network.Repository
 import com.android.app.loodos.bitcointicker.core.common.Helper
+import com.android.app.loodos.bitcointicker.network.FirebaseHelper
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class CoinListFragment: Fragment(), View.OnClickListener {
@@ -33,7 +36,7 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         binding = FragmentCoinListBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(
             BaseViewModel::class.java)
-
+        FirebaseHelper.getInstance()
         return binding.root
     }
 
@@ -43,6 +46,7 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         initView()
         handleTextWatcher()
         viewModel.getCoinsList()
+
     }
 
     private fun handleTextWatcher() {
@@ -80,8 +84,10 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         binding.recyclerCoinList.adapter = adapter
 
         binding.ivClearSearchView.setOnClickListener(this)
+        binding.toolbar.ivToolbarFavoriteIcon.setOnClickListener(this)
 
-        Helper.setToolbarTitle(getString(R.string.app_name), binding.toolbar.tvToolbarTitle)
+        binding.toolbar.tvToolbarTitle.text = FirebaseHelper.firebaseUser.email
+        //Helper.setToolbarTitle(getString(R.string.app_name), binding.toolbar.tvToolbarTitle)
         Helper.setVisibility(true,binding.toolbar.ivToolbarFavoriteIcon)
 
 
@@ -96,6 +102,9 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         when(view.id) {
             R.id.iv_clear_search_view ->  {
                 binding.edSearchingView.text?.clear()
+            }
+            R.id.iv_toolbar_favorite_icon -> {
+                findNavController().navigate(R.id.action_coinsListFragment_to_favoriteCoinsFragment)
             }
         }
     }
