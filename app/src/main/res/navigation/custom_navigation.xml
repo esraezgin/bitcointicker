@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_navigation"
+    app:startDestination="@id/loginFragment">
+
+      <fragment
+          android:id="@+id/coinsListFragment"
+          android:name="com.android.app.loodos.bitcointicker.feature.coinslist.view.CoinListFragment"
+          android:label="fragment_coin_list"
+          tools:layout="@layout/fragment_coin_list">
+            <action
+                android:id="@+id/toCoinsDetailFragment"
+                app:destination="@id/coinsDetailFragment" />
+            <action
+                android:id="@+id/action_coinsListFragment_to_favoriteCoinsFragment"
+                app:destination="@id/favoriteCoinsFragment" />
+      </fragment>
+
+      <fragment
+          android:id="@+id/coinsDetailFragment"
+          android:name="com.android.app.loodos.bitcointicker.feature.detailcoins.view.DetailCoinsFragment"
+          android:label="fragment_coin_detail"
+          tools:layout="@layout/fragment_detail_coins" />
+      <fragment
+          android:id="@+id/loginFragment"
+          android:name="com.android.app.loodos.bitcointicker.feature.login.view.LoginFragment"
+          android:label="login_fragment" >
+            <action
+                android:id="@+id/action_loginFragment_to_coinsListFragment"
+                app:destination="@id/coinsListFragment" />
+      </fragment>
+      <fragment
+          android:id="@+id/favoriteCoinsFragment"
+          android:name="com.android.app.loodos.bitcointicker.feature.favorite.view.FavoriteCoinsFragment"
+          android:label="FavoriteCoinsFragment" >
+            <action
+                android:id="@+id/action_favoriteCoinsFragment_to_coinsDetailFragment"
+                app:destination="@id/coinsDetailFragment" />
+      </fragment>
+
+</navigation>

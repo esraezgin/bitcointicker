@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/search_bg"
+    android:padding="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_16"
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_coin_list_symbol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="realtoken-s-10604-somerset-ave-detroit-mi"
+        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/purple_500"
+        android:fontFamily="monospace"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_coin_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RealT Token - 10604 Somerset Ave, Detroit, MI 48224"
+        android:textSize="@dimen/text_size_12"
+        android:textColor="@color/black"
+        android:fontFamily="monospace"
+        app:layout_constraintTop_toBottomOf="@id/tv_coin_list_symbol"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_coin_list_name"
+        android:layout_marginTop="@dimen/margin_16"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

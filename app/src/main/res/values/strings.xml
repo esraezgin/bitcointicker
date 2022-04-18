@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Bitcoin Ticker</string>
+    <string name="favorite_icon">favorite_icon</string>
+    <string name="search_hint_text">Search Coin</string>
+    <string name="coins_desc_ex">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="empty_list_warning">No cryptocurrencies were found for your search criteria.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_favorite">Add Favorite</string>
+    <string name="current_price">Current Price ( USD )</string>
+    <string name="price_change_24h">Price Change ( 24h )</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="favorite_coin">Favorite Coins"</string>
+    <string name="current_price_usd">Current Price ( USD )</string>
+    <string name="hashing_algorithm">Hashing Algorithm</string>
+
 </resources>
