@@ -17,9 +17,6 @@ import com.android.app.loodos.bitcointicker.feature.coinslist.adapter.CoinsListA
 import com.android.app.loodos.bitcointicker.network.RetrofitApi
 import com.android.app.loodos.bitcointicker.network.Repository
 import com.android.app.loodos.bitcointicker.core.common.Helper
-import com.android.app.loodos.bitcointicker.network.FirebaseHelper
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 
 class CoinListFragment: Fragment(), View.OnClickListener {
@@ -34,9 +31,7 @@ class CoinListFragment: Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCoinListBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(
-            BaseViewModel::class.java)
-        FirebaseHelper.getInstance()
+        viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(BaseViewModel::class.java)
         return binding.root
     }
 
@@ -46,7 +41,6 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         initView()
         handleTextWatcher()
         viewModel.getCoinsList()
-
     }
 
     private fun handleTextWatcher() {
@@ -86,10 +80,8 @@ class CoinListFragment: Fragment(), View.OnClickListener {
         binding.ivClearSearchView.setOnClickListener(this)
         binding.toolbar.ivToolbarFavoriteIcon.setOnClickListener(this)
 
-        binding.toolbar.tvToolbarTitle.text = FirebaseHelper.firebaseUser.email
-        //Helper.setToolbarTitle(getString(R.string.app_name), binding.toolbar.tvToolbarTitle)
+        Helper.setToolbarTitle(getString(R.string.app_name), binding.toolbar.tvToolbarTitle)
         Helper.setVisibility(true,binding.toolbar.ivToolbarFavoriteIcon)
-
 
         adapter.onItemClick = { item ->
             bundle.putSerializable(SELECTED_COIN_ITEM_SYMBOL,item)

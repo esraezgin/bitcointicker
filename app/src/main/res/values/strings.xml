@@ -11,5 +11,7 @@
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
     <string name="favorite_coin">Favorite Coins"</string>
+    <string name="current_price_usd">Current Price ( USD )</string>
+    <string name="hashing_algorithm">Hashing Algorithm</string>
 
 </resources>

@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.android.app.loodos.bitcointicker.core.base.BaseViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,10 +24,10 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/ed_searching_view"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/view_size_40"
             android:background="@color/white"
             android:hint="@string/search_hint_text"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="@dimen/margin_50"
             android:inputType="text"
             android:paddingStart="@dimen/margin_16" />
 
@@ -53,15 +47,15 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/progressbar_width"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:indeterminateTint="@color/purple_500"
-            android:minWidth="200dp"
-            android:minHeight="50dp"
+            android:minWidth="@dimen/progressbar_width"
+            android:minHeight="@dimen/progressbar_height"
             android:progress="0"
             android:visibility="visible"
             android:max="100"

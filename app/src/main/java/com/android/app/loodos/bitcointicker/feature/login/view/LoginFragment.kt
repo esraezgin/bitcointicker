@@ -1,4 +1,4 @@
-package com.android.app.loodos.bitcointicker.feature.login
+package com.android.app.loodos.bitcointicker.feature.login.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import com.android.app.loodos.bitcointicker.databinding.FragmentLoginBinding
 import com.android.app.loodos.bitcointicker.network.FirebaseHelper
 import com.android.app.loodos.bitcointicker.network.Repository
 import com.android.app.loodos.bitcointicker.network.RetrofitApi
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class LoginFragment : Fragment() {
@@ -26,11 +25,9 @@ class LoginFragment : Fragment() {
     private val retrofitApi = RetrofitApi.getInstance()
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(
-            BaseViewModel::class.java)
+        viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(BaseViewModel::class.java)
         FirebaseHelper.getInstance()
         return binding.root
     }
@@ -38,19 +35,18 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogin.setOnClickListener {
+            Helper.setVisibility(true,binding.progressBar)
             signIn()
         }
     }
 
     private fun signIn() {
-        val email = binding.emailText.text?.trim().toString()
-        val password = binding.passwordText.text?.trim().toString()
+        viewModel.userEmail = binding.emailText.text?.trim().toString()
+        viewModel.userPassword = binding.passwordText.text?.trim().toString()
 
 
-
-        Helper.setVisibility(true,binding.progressBar)
-
-        FirebaseHelper.auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(requireActivity()) {
+        FirebaseHelper.auth.signInWithEmailAndPassword(viewModel.userEmail,viewModel.userPassword)
+            .addOnCompleteListener(requireActivity()) {
             if(it.isSuccessful) {
                 FirebaseHelper.firebaseUser = FirebaseHelper.auth.currentUser!!
                 Helper.setVisibility(false,binding.progressBar)

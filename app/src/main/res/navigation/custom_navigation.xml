@@ -25,7 +25,7 @@
           tools:layout="@layout/fragment_detail_coins" />
       <fragment
           android:id="@+id/loginFragment"
-          android:name="com.android.app.loodos.bitcointicker.feature.login.LoginFragment"
+          android:name="com.android.app.loodos.bitcointicker.feature.login.view.LoginFragment"
           android:label="login_fragment" >
             <action
                 android:id="@+id/action_loginFragment_to_coinsListFragment"

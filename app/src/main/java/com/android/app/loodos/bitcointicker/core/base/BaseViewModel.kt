@@ -3,24 +3,36 @@ package com.android.app.loodos.bitcointicker.core.base
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.app.loodos.bitcointicker.core.common.Helper
 import com.android.app.loodos.bitcointicker.feature.coinslist.model.CoinsList
 import com.android.app.loodos.bitcointicker.feature.detailcoins.model.CoinDetails
+import com.android.app.loodos.bitcointicker.network.FirebaseHelper
 import com.android.app.loodos.bitcointicker.network.Repository
 import com.android.app.loodos.bitcointicker.network.RetrofitApi
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class BaseViewModel constructor(private val repository: Repository) : ViewModel() {
 
-    var coinList = MutableLiveData<List<CoinsList>>()
-     var coinDetailLiveData = MutableLiveData<CoinDetails> ()
-     var  coinDetails : CoinDetails = CoinDetails()
+
+    private lateinit var coin: HashMap<String, String>
+    lateinit var favoriteCoinList: MutableList<CoinsList>
+    lateinit var dbRef:DocumentReference
 
     var originalCoinList: List<CoinsList> = emptyList()
-    var selectedCoinItem : CoinsList ?= null
+    var selectedCoinItem: CoinsList? = null
 
-    var fromFavorite:Boolean=false
+    var fromFavorite: Boolean = false
+
+    var userEmail: String = ""
+    var userPassword: String = ""
+
+    var coinList = MutableLiveData<List<CoinsList>>()
+    var coinDetailLiveData = MutableLiveData<CoinDetails>()
 
 
     fun getCoinsList() {
@@ -44,8 +56,11 @@ class BaseViewModel constructor(private val repository: Repository) : ViewModel(
         })
     }
 
+    fun setDocumentReference(){
+        dbRef =FirebaseHelper.firebaseDB.collection("fav_coins").document(FirebaseHelper.firebaseUser.uid)
+    }
 
-    fun getCoinDetails(id:String) {
+    fun getCoinDetails(id: String) {
         RetrofitApi.getInstance().getCoinDetails(
             id = id,
             localization = false,
@@ -54,7 +69,7 @@ class BaseViewModel constructor(private val repository: Repository) : ViewModel(
             community_data = false,
             developer_data = false,
             sparkline = false
-        ).enqueue( object  : Callback<CoinDetails> {
+        ).enqueue(object : Callback<CoinDetails> {
             override fun onResponse(call: Call<CoinDetails>, response: Response<CoinDetails>) {
                 if (response.isSuccessful) {
                     coinDetailLiveData.postValue(response.body())
@@ -63,7 +78,7 @@ class BaseViewModel constructor(private val repository: Repository) : ViewModel(
 
             override fun onFailure(call: Call<CoinDetails>, t: Throwable) {
                 Log.e(
-                    BaseViewModel::class.java.name+"-detail",
+                    BaseViewModel::class.java.name + "-detail",
                     t.localizedMessage?.toString() ?: t.message.toString()
                 )
             }
@@ -74,12 +89,30 @@ class BaseViewModel constructor(private val repository: Repository) : ViewModel(
     fun filterCoinList(query: CharSequence?): List<CoinsList> {
         return if (!query.isNullOrEmpty()) {
             originalCoinList.filter {
-                 it.symbol?.lowercase()?.contains(query.toString().lowercase().trim())!! ||
-                    it.name?.lowercase()?.contains(query.toString().lowercase().trim())!!
+                it.symbol?.lowercase()?.contains(query.toString().lowercase().trim())!! ||
+                        it.name?.lowercase()?.contains(query.toString().lowercase().trim())!!
             }
         } else {
             originalCoinList
         }
+    }
+
+    fun updateFavoriteCoinList() {
+        coin = hashMapOf(
+            "id" to selectedCoinItem?.id!!,
+            "symbol" to selectedCoinItem?.symbol!!,
+            "name" to selectedCoinItem?.name!!
+        )
+        dbRef.update("coins", FieldValue.arrayUnion(coin))
+    }
+
+    fun setFavoriteCoinList(documentSnapshot: DocumentSnapshot) {
+        val favoriteCoins = documentSnapshot.get("coins") as ArrayList<HashMap<String, String>>
+        favoriteCoinList = mutableListOf<CoinsList>()
+        favoriteCoins.forEach { item ->
+            favoriteCoinList.add(CoinsList(item["id"], item["symbol"], item["name"]))
+        }
+        favoriteCoinList.reverse()
     }
 
 }

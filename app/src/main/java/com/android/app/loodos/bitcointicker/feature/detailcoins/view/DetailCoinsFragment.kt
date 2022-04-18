@@ -19,21 +19,22 @@ import com.android.app.loodos.bitcointicker.network.FirebaseHelper
 import com.android.app.loodos.bitcointicker.network.Repository
 import com.android.app.loodos.bitcointicker.network.RetrofitApi
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.FieldValue
 
 class DetailCoinsFragment : Fragment() {
 
     private lateinit var viewModel: BaseViewModel
-    private lateinit var binding : FragmentDetailCoinsBinding
-    private lateinit var coin : HashMap<String,String>
-
-
+    private lateinit var binding: FragmentDetailCoinsBinding
     private val retrofitApi = RetrofitApi.getInstance()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentDetailCoinsBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, BaseViewModelFactory(Repository(retrofitApi))).get(
-            BaseViewModel::class.java)
+            BaseViewModel::class.java
+        )
 
         FirebaseHelper.getInstance()
         return binding.root
@@ -41,33 +42,37 @@ class DetailCoinsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.selectedCoinItem = arguments?.getSerializable(CoinListFragment.SELECTED_COIN_ITEM_SYMBOL) as CoinsList
-        viewModel.fromFavorite = arguments?.getBoolean(FavoriteCoinsFragment.FROM_FAVORITE) as Boolean
-
-        viewModel.getCoinDetails(viewModel.selectedCoinItem?.id ?: "")
+        initArgument()
+        viewModel.setDocumentReference()
         initObserve()
         initView()
 
+
+        viewModel.getCoinDetails(viewModel.selectedCoinItem?.id ?: "")
     }
 
-    private fun initView()   {
-        Helper.setToolbarTitle(viewModel.selectedCoinItem?.symbol ?: "",binding.toolbar.tvToolbarTitle)
+    private fun initArgument() {
+        viewModel.selectedCoinItem =
+            arguments?.getSerializable(CoinListFragment.SELECTED_COIN_ITEM_SYMBOL) as CoinsList
+        viewModel.fromFavorite =
+            arguments?.getBoolean(FavoriteCoinsFragment.FROM_FAVORITE) as Boolean
+    }
+
+    private fun initView() {
+        Helper.setToolbarTitle(
+            viewModel.selectedCoinItem?.symbol ?: "",
+            binding.toolbar.tvToolbarTitle
+        )
 
         binding.btnAddFavorite.setOnClickListener {
-            coin = hashMapOf(
-                "id" to viewModel.selectedCoinItem?.id!!,
-                "symbol" to viewModel.selectedCoinItem?.symbol!!,
-                "name" to viewModel.selectedCoinItem?.name!!
-            )
-            val dbRef=FirebaseHelper.firebaseDB.collection("fav_coins").document(FirebaseHelper.firebaseUser.uid)
-            dbRef.update("coins",FieldValue.arrayUnion(coin))
-            Toast.makeText(requireContext(),"Successful favorite coins ",Toast.LENGTH_LONG).show()
+            viewModel.updateFavoriteCoinList()
+            Toast.makeText(requireContext(), " Favorite coin added successfully ", Toast.LENGTH_LONG).show()
         }
 
-        if(viewModel.fromFavorite){
-            binding.btnAddFavorite.visibility=View.GONE
-        }else {
-            binding.btnAddFavorite.visibility=View.VISIBLE
+        if (viewModel.fromFavorite) {
+            binding.btnAddFavorite.visibility = View.GONE
+        } else {
+            binding.btnAddFavorite.visibility = View.VISIBLE
         }
     }
 
@@ -80,11 +85,13 @@ class DetailCoinsFragment : Fragment() {
     private fun setDetailItem(item: CoinDetails) {
         binding.tvCoinDetailCurrentPrice.text = String.format("%.5f", item.market_data?.current_price?.usd)
         binding.tvCoinDetailDescription.text = item.description?.en ?: ""
-        binding.tvCoinDetailPriceChangePercentage.text = "%"+Helper.controlDoubleData(item.market_data?.price_change_percentage_24h).toString()
+        binding.tvCoinDetailPriceChangePercentage.text =
+            "%" + Helper.controlDoubleData(item.market_data?.price_change_percentage_24h).toString()
         binding.tvCoinDetailHashingAlgorithm.text = Helper.controlStringData(item.hashing_algorithm)
-        if(!item.image?.thumb.isNullOrEmpty()){
-            Helper.setVisibility(true,binding.toolbar.ivToolbarFavoriteIcon)
-            Glide.with(requireActivity()).load(item.image?.thumb).centerCrop().into(binding.toolbar.ivToolbarFavoriteIcon)
+        if (!item.image?.thumb.isNullOrEmpty()) {
+            Helper.setVisibility(true, binding.toolbar.ivToolbarFavoriteIcon)
+            Glide.with(requireActivity()).load(item.image?.thumb).centerCrop()
+                .into(binding.toolbar.ivToolbarFavoriteIcon)
         }
 
     }

@@ -28,21 +28,21 @@
                 android:layout_marginTop="@dimen/margin_16"
                 android:gravity="start"
                 android:orientation="horizontal"
-                android:padding="8dp"
+                android:padding="@dimen/padding_8"
                  android:layout_marginHorizontal="@dimen/margin_16"
                  app:layout_constraintTop_toTopOf="parent"
                >
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Price ( USD )  " />
+                    android:text="@string/current_price_usd" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_coin_detail_current_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="404.505"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/margin_8"
                     />
 
             </LinearLayout>
@@ -55,7 +55,7 @@
                 android:layout_marginTop="@dimen/margin_8"
                 android:gravity="start"
                 android:orientation="horizontal"
-                android:padding="8dp"
+                android:padding="@dimen/padding_8"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ly_detail_current_price_view">
@@ -63,13 +63,13 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hashing Algorithm" />
+                    android:text="@string/hashing_algorithm" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_coin_detail_hashing_algorithm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
+                    android:layout_marginStart="@dimen/margin_25"
                     tools:text="SSH-8547" />
 
             </LinearLayout>
@@ -81,7 +81,7 @@
                 android:layout_marginTop="@dimen/margin_8"
                 android:gravity="start"
                 android:orientation="horizontal"
-                android:padding="8dp"
+                android:padding="@dimen/padding_8"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ly_detail_hashing_algorithm_view">
@@ -95,7 +95,7 @@
                 android:id="@+id/tv_coin_detail_price_change_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="@dimen/margin_25"
                 tools:text="%25" />
             </LinearLayout>
 
